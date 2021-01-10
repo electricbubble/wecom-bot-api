@@ -9,7 +9,10 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"os"
+	"path"
+	"strings"
 	"time"
 )
 
@@ -51,11 +54,16 @@ func newUploadRequest(method string, rawUrl string, filename string) (request *h
 	}
 	defer func() { _ = mediaFile.Close() }()
 
-	formFile, err := writer.CreateFormFile("media", filename)
+	h := make(textproto.MIMEHeader)
+	h.Set("Content-Disposition",
+		fmt.Sprintf(`form-data; name="%s"; filename="%s"`,
+			"media", escapeQuotes(path.Base(filename))))
+	h.Set("Content-Type", "application/octet-stream")
+	part, err := writer.CreatePart(h)
 	if err != nil {
 		return nil, err
 	}
-	_, _ = io.Copy(formFile, mediaFile)
+	_, _ = io.Copy(part, mediaFile)
 
 	_ = writer.Close()
 
@@ -98,6 +106,12 @@ func executeHTTP(req *http.Request) (rawResp []byte, err error) {
 	}
 
 	return
+}
+
+var quoteEscaper = strings.NewReplacer("\\", "\\\\", `"`, "\\\"")
+
+func escapeQuotes(s string) string {
+	return quoteEscaper.Replace(s)
 }
 
 var debugFlag = false
