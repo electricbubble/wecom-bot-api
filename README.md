@@ -25,7 +25,7 @@ func main() {
 	phoneNumber := os.Getenv("Phone_Number")
 	userid := os.Getenv("Userid")
 
-	bot, _ := botApi.NewWeComBot(botKey)
+	bot := botApi.NewWeComBot(botKey)
 
 	// 仅发送文本内容
 	_ = bot.PushTextMessage("hi")
@@ -51,6 +51,7 @@ func main() {
 package main
 
 import (
+	"bytes"
 	botApi "github.com/electricbubble/wecom-bot-api"
 	"github.com/electricbubble/wecom-bot-api/md"
 	"os"
@@ -60,15 +61,13 @@ func main() {
 	botKey := os.Getenv("WeCom_Bot_Key")
 	userid := os.Getenv("Userid")
 
-	bot, _ := botApi.NewWeComBot(botKey)
+	bot := botApi.NewWeComBot(botKey)
 
-	// 仅发送 `markdown` 格式的文本
-	_ = bot.PushMarkdownMessage(
-		md.Heading(1, "H1") + "实时新增用户反馈" + md.WarningText("132例") + "，请相关同事注意。\n" +
-			md.QuoteText("类型:"+md.CommentText("用户反馈")) +
-			md.QuoteText("普通用户反馈:"+md.CommentText("117例")) +
-			md.QuoteText("VIP用户反馈:"+md.CommentText("15例")),
-	)
+	content := bytes.NewBufferString(md.Heading(1, "H1"))
+	content.WriteString("实时新增用户反馈" + md.WarningText("132例") + "，请相关同事注意。\n")
+	content.WriteString(md.QuoteText("类型:" + md.CommentText("用户反馈")))
+	content.WriteString(md.QuoteText("普通用户反馈:" + md.CommentText("117例")))
+	content.WriteString(md.QuoteText("VIP用户反馈:" + md.CommentText("15例")))
 	// 👆效果等同于👇
 	/*
 		# H1
@@ -77,6 +76,9 @@ func main() {
 		> 普通用户反馈:<font color="comment">117例</font>
 		> VIP用户反馈:<font color="comment">15例</font>
 	*/
+
+	// 仅发送 `markdown` 格式的文本
+	_ = bot.PushMarkdownMessage(content.String())
 
 	// 通过群成员 `userid` 进行 `@` 提醒
 	_ = bot.PushMarkdownMessage(
@@ -101,7 +103,7 @@ import (
 
 func main() {
 	botKey := os.Getenv("WeCom_Bot_Key")
-	bot, _ := botApi.NewWeComBot(botKey)
+	bot := botApi.NewWeComBot(botKey)
 
 	userHomeDir, _ := os.UserHomeDir()
 	filename := path.Join(userHomeDir, "Pictures", "IMG_5246.jpg")
@@ -125,7 +127,7 @@ import (
 
 func main() {
 	botKey := os.Getenv("WeCom_Bot_Key")
-	bot, _ := botApi.NewWeComBot(botKey)
+	bot := botApi.NewWeComBot(botKey)
 
 	article := botApi.NewArticle("中秋节礼品领取", "www.qq.com",
 		botApi.ArticleDescription("今年中秋节公司有豪礼相送"),
@@ -154,7 +156,6 @@ func main() {
 package main
 
 import (
-	"fmt"
 	botApi "github.com/electricbubble/wecom-bot-api"
 	"os"
 	"path"
@@ -162,7 +163,7 @@ import (
 
 func main() {
 	botKey := os.Getenv("WeCom_Bot_Key")
-	bot, _ := botApi.NewWeComBot(botKey)
+	bot := botApi.NewWeComBot(botKey)
 
 	userHomeDir, _ := os.UserHomeDir()
 	filename := path.Join(userHomeDir, "Pictures", "IMG_5246.jpg")

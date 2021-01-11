@@ -13,21 +13,17 @@ var phoneNumber = ""
 var userid = ""
 var bot WeComBot
 
-func setup(t *testing.T) {
+func setup() {
 	botKey = os.Getenv("WeCom_Bot_Key")
 
 	phoneNumber = os.Getenv("Phone_Number")
 	userid = os.Getenv("Userid")
 
-	var err error
-	bot, err = NewWeComBot(botKey)
-	if err != nil {
-		t.Fatal(err)
-	}
+	bot = NewWeComBot(botKey)
 }
 
 func Test_weComBot_PushTextMessage(t *testing.T) {
-	setup(t)
+	setup()
 
 	// err := bot.PushTextMessage("广州今日天气：29度，大部分多云，降雨概率：60%",
 	// 	MentionByUserid("wangqing"), MentionAllByUserid(),
@@ -43,7 +39,7 @@ func Test_weComBot_PushTextMessage(t *testing.T) {
 }
 
 func Test_weComBot_PushMarkdownMessage(t *testing.T) {
-	setup(t)
+	setup()
 	SetDebug(true)
 
 	// err := bot.PushMarkdownMessage(md.Heading(1, "H1") + "实时新增用户反馈" + md.WarningText("132例") + "，请相关同事注意。\n" +
@@ -64,7 +60,7 @@ func Test_weComBot_PushMarkdownMessage(t *testing.T) {
 }
 
 func Test_weComBot_PushImageMessage(t *testing.T) {
-	setup(t)
+	setup()
 	// SetDebug(true)
 
 	userHomeDir, _ := os.UserHomeDir()
@@ -82,7 +78,7 @@ func Test_weComBot_PushImageMessage(t *testing.T) {
 }
 
 func Test_weComBot_PushNewsMessage(t *testing.T) {
-	setup(t)
+	setup()
 	// SetDebug(true)
 
 	article := NewArticle("中秋节礼品领取", "www.qq.com",
@@ -104,7 +100,7 @@ func Test_weComBot_PushNewsMessage(t *testing.T) {
 }
 
 func Test_weComBot_PushFileMessage(t *testing.T) {
-	setup(t)
+	setup()
 	SetDebug(true)
 
 	userHomeDir, _ := os.UserHomeDir()
@@ -121,7 +117,7 @@ func Test_weComBot_PushFileMessage(t *testing.T) {
 }
 
 func Test_weComBot_UploadFile(t *testing.T) {
-	setup(t)
+	setup()
 	SetDebug(true)
 
 	userHomeDir, _ := os.UserHomeDir()

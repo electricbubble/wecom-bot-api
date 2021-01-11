@@ -11,21 +11,12 @@ type weComBot struct {
 	key     string
 }
 
-// func NewWeComBot(webhook string) (WeComBot, error) {
-func NewWeComBot(key string) (WeComBot, error) {
+func NewWeComBot(key string) WeComBot {
 	bot := new(weComBot)
 	bot.webhook = fmt.Sprintf(BotSendUrl, key)
-	// bot.webhook = webhook
-
-	// webhookUrl, err := url.Parse(webhook)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// bot.key = webhookUrl.Query().Get("key")
 
 	bot.key = key
-	return bot, nil
+	return bot
 }
 
 func (b *weComBot) PushTextMessage(content string, opts ...TextMsgOption) (err error) {
