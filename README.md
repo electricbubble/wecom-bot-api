@@ -150,6 +150,78 @@ func main() {
 
 ```
 
+#### [文本通知模版卡片](https://work.weixin.qq.com/api/doc/90000/90136/91770#%E6%96%87%E6%9C%AC%E9%80%9A%E7%9F%A5%E6%A8%A1%E7%89%88%E5%8D%A1%E7%89%87)
+
+```go
+package main
+
+import (
+	botApi "github.com/electricbubble/wecom-bot-api"
+	"os"
+)
+
+func main() {
+	botKey := os.Getenv("WeCom_Bot_Key")
+	bot := botApi.NewWeComBot(botKey)
+
+	// "media_id":"38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"
+	media := botApi.Media{ID: "38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"}
+
+	rawUrl := "https://work.weixin.qq.com/api/doc/90000/90136/91770#%E6%96%87%E6%9C%AC%E9%80%9A%E7%9F%A5%E6%A8%A1%E7%89%88%E5%8D%A1%E7%89%87"
+
+	// botApi.TemplateCardActionApp("APPID", "/index.html")
+
+	_ = bot.PushTemplateCardTextNotice(
+		botApi.TemplateCardMainTitle("一级标题", "标题辅助信息"), botApi.TemplateCardActionUrl(rawUrl),
+		botApi.TemplateCardSource("https://wework.qpic.cn/wwpic/252813_jOfDHtcISzuodLa_1629280209/0", "企业微信"),
+		botApi.TemplateCardEmphasisContent("关键数据标题", "关键数据描述"),
+		botApi.TemplateCardSubTitleText("二级普通文本"),
+		botApi.TemplateCardHorizontalContent("二级标题(text)", botApi.TemplateCardHorizontalContentText("二级文本")),
+		botApi.TemplateCardHorizontalContent("二级标题(url)", botApi.TemplateCardHorizontalContentUrl(rawUrl, "api地址")),
+		botApi.TemplateCardHorizontalContent("二级标题(media)", botApi.TemplateCardHorizontalContentMedia("IMG_5246.jpg", media)),
+		botApi.TemplateCardJump("跳转指引", botApi.TemplateCardJumpUrl(rawUrl)),
+		botApi.TemplateCardJump("企业微信官网", botApi.TemplateCardJumpUrl("https://work.weixin.qq.com")),
+	)
+}
+
+```
+
+#### [图文展示模版卡片](https://work.weixin.qq.com/api/doc/90000/90136/91770#%E5%9B%BE%E6%96%87%E5%B1%95%E7%A4%BA%E6%A8%A1%E7%89%88%E5%8D%A1%E7%89%87)
+
+```go
+package main
+
+import (
+	botApi "github.com/electricbubble/wecom-bot-api"
+	"os"
+)
+
+func main() {
+	botKey := os.Getenv("WeCom_Bot_Key")
+	bot := botApi.NewWeComBot(botKey)
+
+	// "media_id":"38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"
+	media := botApi.Media{ID: "38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"}
+
+	rawUrl := "https://work.weixin.qq.com/api/doc/90000/90136/91770#%E5%9B%BE%E6%96%87%E5%B1%95%E7%A4%BA%E6%A8%A1%E7%89%88%E5%8D%A1%E7%89%87"
+	imgUrl := "https://wework.qpic.cn/wwpic/354393_4zpkKXd7SrGMvfg_1629280616/0"
+
+	// botApi.TemplateCardActionApp("APPID", "/index.html")
+
+	_ = bot.PushTemplateCardNewsNotice(
+		botApi.TemplateCardMainTitle("一级标题", "标题辅助信息"), botApi.TemplateCardImage(imgUrl), botApi.TemplateCardActionUrl(rawUrl),
+		botApi.TemplateCardSource("https://wework.qpic.cn/wwpic/252813_jOfDHtcISzuodLa_1629280209/0", "企业微信"),
+		botApi.TemplateCardVerticalContent("卡片二级标题", "二级普通文本"),
+		botApi.TemplateCardHorizontalContent("二级标题(text)", botApi.TemplateCardHorizontalContentText("二级文本")),
+		botApi.TemplateCardHorizontalContent("二级标题(url)", botApi.TemplateCardHorizontalContentUrl(rawUrl, "api地址")),
+		botApi.TemplateCardHorizontalContent("二级标题(media)", botApi.TemplateCardHorizontalContentMedia("IMG_5246.jpg", media)),
+		botApi.TemplateCardJump("跳转指引", botApi.TemplateCardJumpUrl(rawUrl)),
+		botApi.TemplateCardJump("企业微信官网", botApi.TemplateCardJumpUrl("https://work.weixin.qq.com")),
+	)
+}
+
+```
+
 #### 文件消息
 
 ```go

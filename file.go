@@ -8,13 +8,13 @@ type fileMsg struct {
 
 type Media struct {
 	// 文件id, 通过文件上传接口获取
-	Id string `json:"media_id"`
+	ID string `json:"media_id"`
 }
 
-func newFileMsg(mediaId string) fileMsg {
+func newFileMsg(mediaID string) fileMsg {
 	msg := fileMsg{
 		MsgType: "file",
-		File:    Media{Id: mediaId},
+		File:    Media{ID: mediaID},
 	}
 	return msg
 }

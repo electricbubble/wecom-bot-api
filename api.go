@@ -28,6 +28,8 @@ type WeComBot interface {
 	PushImageMessage(img []byte) error
 	PushNewsMessage(art Article, articles ...Article) error
 	PushFileMessage(media Media) error
+	PushTemplateCardTextNotice(mainTitle TemplateCardMainTitleOption, cardAction TemplateCardAction, opts ...TemplateCardOption) error
+	PushTemplateCardNewsNotice(mainTitle TemplateCardMainTitleOption, cardImage TemplateCardImageOption, cardAction TemplateCardAction, opts ...TemplateCardOption) error
 	UploadFile(filename string) (media Media, err error)
 }
 

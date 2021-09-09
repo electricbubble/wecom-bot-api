@@ -40,8 +40,18 @@ func (b *weComBot) PushNewsMessage(art Article, articles ...Article) (err error)
 }
 
 func (b *weComBot) PushFileMessage(media Media) error {
-	msg := newFileMsg(media.Id)
+	msg := newFileMsg(media.ID)
 	return b.pushMsg(msg)
+}
+
+func (b *weComBot) PushTemplateCardTextNotice(mainTitle TemplateCardMainTitleOption, cardAction TemplateCardAction, opts ...TemplateCardOption) error {
+	tplCardMsg := newTemplateCardMsg(newTemplateCardText(mainTitle, cardAction, opts...))
+	return b.pushMsg(tplCardMsg)
+}
+
+func (b *weComBot) PushTemplateCardNewsNotice(mainTitle TemplateCardMainTitleOption, cardImage TemplateCardImageOption, cardAction TemplateCardAction, opts ...TemplateCardOption) error {
+	tplCardMsg := newTemplateCardMsg(newTemplateCardNews(mainTitle, cardImage, cardAction, opts...))
+	return b.pushMsg(tplCardMsg)
 }
 
 func (b *weComBot) pushMsg(msg interface{}) (err error) {
@@ -77,6 +87,6 @@ func (b *weComBot) UploadFile(filename string) (media Media, err error) {
 	if err = json.Unmarshal(rawResp, reply); err != nil {
 		return Media{}, fmt.Errorf("unknown response: %w\nraw response: %s", err, rawResp)
 	}
-	media = Media{Id: reply.MediaId}
+	media = Media{ID: reply.MediaId}
 	return
 }
