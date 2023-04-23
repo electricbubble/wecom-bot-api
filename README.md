@@ -17,13 +17,12 @@ package main
 
 import (
 	botApi "github.com/electricbubble/wecom-bot-api"
-	"os"
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
-	phoneNumber := os.Getenv("Phone_Number")
-	userid := os.Getenv("Userid")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
+	phoneNumber := "Phone_Number"
+	userid := "Userid"
 
 	bot := botApi.NewWeComBot(botKey)
 
@@ -54,12 +53,11 @@ import (
 	"bytes"
 	botApi "github.com/electricbubble/wecom-bot-api"
 	"github.com/electricbubble/wecom-bot-api/md"
-	"os"
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
-	userid := os.Getenv("Userid")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
+	userid := "Userid"
 
 	bot := botApi.NewWeComBot(botKey)
 
@@ -102,7 +100,7 @@ import (
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
 	bot := botApi.NewWeComBot(botKey)
 
 	userHomeDir, _ := os.UserHomeDir()
@@ -126,7 +124,7 @@ import (
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
 	bot := botApi.NewWeComBot(botKey)
 
 	article := botApi.NewArticle("中秋节礼品领取", "www.qq.com",
@@ -161,7 +159,7 @@ import (
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
 	bot := botApi.NewWeComBot(botKey)
 
 	// "media_id":"38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"
@@ -197,7 +195,7 @@ import (
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
 	bot := botApi.NewWeComBot(botKey)
 
 	// "media_id":"38BHOWH1SHSCZImMcuPmG2TuJSpYikh0AxznKJYSUJAJaFJvDeRu60NTAuj_IKLoR"
@@ -234,7 +232,7 @@ import (
 )
 
 func main() {
-	botKey := os.Getenv("WeCom_Bot_Key")
+	botKey := "WeCom_Bot_Key" // 只填 key= 后边的内容
 	bot := botApi.NewWeComBot(botKey)
 
 	userHomeDir, _ := os.UserHomeDir()
